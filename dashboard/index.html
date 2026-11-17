@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols, ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="kicker">Token Radar · model radar-2</p>
+    <h1>Protocols with no token yet, ranked by what one would be worth</h1>
+    <p class="lede">Every row below records no token in the snapshot. Its implied value comes only from that protocol's own figures — TVL, seven-day growth, how long it has run with no token, and how many chains it spans. Nothing here predicts whether or when a token is issued.</p>
+    <dl class="stats" id="stats"></dl>
+  </div>
+</header>
+<main>
+  <section class="controls" aria-label="Board controls">
+    <div class="tabs" role="tablist">
+      <button id="tab-board" role="tab" aria-selected="true">Pre-token board</button>
+      <button id="tab-live" role="tab" aria-selected="false">Already trading</button>
+    </div>
+    <label>Search <input id="q" type="search" placeholder="Name or slug…" autocomplete="off"></label>
+    <label>Category <select id="category"><option value="">All categories</option></select></label>
+    <label>Chain <select id="chain"><option value="">All chains</option></select></label>
+    <label>Sort by
+      <select id="sort">
+        <option value="value">Implied value</option>
+        <option value="tvl">TVL</option>
+        <option value="growth">7-day change</option>
+        <option value="age">Age (days tracked)</option>
+      </select>
+    </label>
+  </section>
+  <p class="hint" id="hint"></p>
+  <div class="layout">
+    <section class="board-wrap">
+      <table id="board">
+        <thead>
+          <tr><th>#</th><th>Protocol</th><th>Category</th><th>Chains</th><th>TVL</th><th>7d</th><th>Implied value</th></tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p class="empty" id="empty" hidden>No protocol matches these filters.</p>
+    </section>
+    <aside class="detail" id="detail" aria-live="polite">
+      <p class="detail-empty">Select a protocol to see its model breakdown and farm plan.</p>
+    </aside>
+  </div>
+  <section class="method">
+    <h2>How the value is worked out</h2>
+    <p>Implied value = TVL × 0.30, times a growth multiplier (seven-day change clamped to −50%…+100%, weight 0.6), times a maturity multiplier (0.75–1.00 over four years tracked with no token; 180 days assumed when the listing date is unknown), times a breadth multiplier (1.00–1.30 for one to seven chains). The same function scores every row — no protocol is ever special-cased. Protocols whose token already trades are shown apart, at their market capitalisation, never at a modelled value.</p>
+    <p class="fine">Data: a frozen DefiLlama snapshot. “Records no token” means the snapshot carries no token for the protocol — it is not proof that none exists. Farm steps are a starting point, not financial advice; never pay to claim an airdrop, and check every link on the protocol's own page.</p>
+  </section>
+</main>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
